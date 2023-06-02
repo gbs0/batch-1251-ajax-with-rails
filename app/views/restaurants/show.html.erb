@@ -1,0 +1,19 @@
+<h1><%= @restaurant.name %> <small><%= @restaurant.address %></small></h1>
+
+<h2><%= pluralize(@restaurant.reviews.size, "review") %></h2>
+
+<div data-controller="review" data-review-position-value="afterbegin">
+    <div data-review-target="list">
+        <% if @restaurant.reviews.blank? %>
+            Be the first to leave a review for <%= @restaurant.name %>
+        <% else %>
+            <% @restaurant.reviews.each do |review| %>
+              <%= render "reviews", review: review %>
+            <% end %>
+        <% end %>
+    </div>
+
+    <%= render "reviews/form", restaurant: @restaurant, review: @review %>
+</div>
+
+<%= link_to "Back to all restaurants", restaurants_path %>
